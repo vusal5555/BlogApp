@@ -24,6 +24,18 @@ app.use("/api/upload", UploadRoutes);
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/front-end/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "front-end", "dist", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("hello from server");
+  });
+}
+
 app.use(notFound);
 app.use(errorHandler);
 
