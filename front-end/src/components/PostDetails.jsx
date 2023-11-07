@@ -94,27 +94,32 @@ const PostDetails = () => {
             })
           )}
         </div>
-        <div>
-          <p className="mb-5">Comments: </p>
+        {post.comments.length === 0 ? (
+          <p>No Comments</p>
+        ) : (
+          <div>
+            <p className="mb-5">Comments: </p>
 
-          {post.comments.map((comment, index) => {
-            return (
-              <div
-                key={index}
-                className="flex flex-col gap-2 bg-gray-300 p-3 rounded-md mb-3"
-              >
-                <div className="flex items-center justify-between">
-                  <p>@{comment.name}</p>
-                  <p>{comment.createdAt.substring(0, 10)}</p>
-                </div>
+            {post.comments.map((comment, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col gap-2 bg-gray-300 p-3 rounded-md mb-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <p>@{comment.name}</p>
+                    <p>{comment.createdAt.substring(0, 10)}</p>
+                  </div>
 
-                <div>
-                  <p>{comment.comment}</p>
+                  <div>
+                    <p>{comment.comment}</p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
+
         <form
           onSubmit={createCommentHandler}
           className="flex flex-col items-center w-full md:flex-row gap-4"
